@@ -23,23 +23,23 @@ This is a CRUD-based Employee Management System built with Flask, SQLite for dev
   - Includes validation for employee names, addresses, salary, and image URLs.
   
 - **Dockerized Application**:
-  - The application is containerized with Docker and uses Docker Compose for running the application with PostgreSQL/MySQL for production.
+  - The application is contained Dockerfile for support Docker setup
 
 ## Technologies Used
 
 - **Flask**: Backend framework
 - **Flask-Login**: User authentication
 - **SQLite**: Database for development
-- **PostgreSQL/MySQL**: Database for production (with Docker)
-- **Docker & Docker Compose**: Containerization for production-ready setup
+- **Docker**: Provide multiple setup method
 - **Unit Testing**: `unittest` for automated testing
+- **Postman**: for automated integration testing
 
 ## Installation and Setup
 
 ### Prerequisites
 
 - Python 3.10
-- Docker and Docker Compose (Optional)
+- Docker (Optional)
 
 ### Local Development Setup
 
@@ -59,9 +59,25 @@ This is a CRUD-based Employee Management System built with Flask, SQLite for dev
     SECRET_KEY=your_secret_key
     SQLALCHEMY_DATABASE_URI=sqlite:///employee_management.db
 5. **Run the Application**:
-    ```bash
-    flask run
+  ```bash
+  flask  run
+  ```
+  or
+  ```bash
+  flask -—debug run
+  ```
+  for turn on debug mode
   - The application will run on `http://127.0.0.1:5000`
+
+6. **Switch Environment(Optional)**:
+For change to production mode
+```bash
+export FLASK_ENV=production
+```
+For change to development mode
+```bash
+export FLASK_ENV=development
+```
 
 ### Docker Setup
 
@@ -75,6 +91,8 @@ This is a CRUD-based Employee Management System built with Flask, SQLite for dev
 3. **Run Docker Image**:
     ```bash
     docker run -P flask-employee-management-app
+    ```
+    * Default docker run will be production mode
 4. **Check port of the running container**:
     ```bash
     docker ps
@@ -148,6 +166,20 @@ Unit tests are written using unittest. You can run them with the following comma
   ```bash
   python -m unittest discover tests
   ```
+
+#### Run Integration via Postman
+
+This github repository also included Postman Automated Integration Test file in `postman` directory
+
+To perform Automated Integration Test via Postman(https://www.postman.com/) please follow the step below:
+
+1. Open Postman 
+2. Import Postman collection and Postman environment file from postman directory
+3. Go to collection "emp_mgm" make sure it use "emp_mgm" environment
+4. Click Run
+5. Uncheck all the box and Set delay to 10ms
+6. Click "Run emp_mgm" button
+
 
 #### Known Issues
 - The application is currently configured to use SQLite for local development. Ensure that the database is switched to PostgreSQL/MySQL for production environments.
