@@ -64,7 +64,7 @@ This is a CRUD-based Employee Management System built with Flask, SQLite for dev
   ```
   or
   ```bash
-  flask -—debug run
+  flask --debug run
   ```
   for turn on debug mode
   - The application will run on `http://127.0.0.1:5000`
