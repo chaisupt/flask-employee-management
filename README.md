@@ -7,10 +7,11 @@ This is a CRUD-based Employee Management System built with Flask, SQLite for dev
 ## Features
 
 - **CRUD Operations**:
-  - Employees: Create, read, update, delete employees.
-  - Positions: Manage job positions, including salary details.
-  - Departments: Manage departments and assign managers.
-  - Statuses: Track employee status (e.g., active, probation, resigned).
+  - Employees: Create, Read, Update, Delete employees.
+  - Positions: Create, Read, Update, Delete positions.
+  - Departments: Create, Read, Update, Delete departments.
+  - Statuses: Create, Read, Update, Delete statuses.
+  - User: Create (In case drop all table)
   
 - **User Authentication**: 
   - Implemented using Flask-Login.
@@ -38,11 +39,136 @@ This is a CRUD-based Employee Management System built with Flask, SQLite for dev
 ### Prerequisites
 
 - Python 3.10
-- Docker and Docker Compose
+- Docker and Docker Compose (Optional)
 
 ### Local Development Setup
 
 1. **Clone the Repository**:
    ```bash
-   git clone <your-repository-url>
-   cd employee-management
+   git clone https://github.com/chaisupt/flask-employee-management.git
+2. **Create and Activate a Virtual Environment**:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+3. **Install the Dependencies**:
+    ```bash
+    pip install -r requirements.txt
+4. **Set Up Environment Variables: Create a `.env` file with the following content**:
+    ```bash
+    FLASK_ENV=development
+    SECRET_KEY=your_secret_key
+    SQLALCHEMY_DATABASE_URI=sqlite:///employee_management.db
+5. **Run the Application**:
+    ```bash
+    flask run
+  - The application will run on `http://127.0.0.1:5000`
+
+### Docker Setup
+
+1. **Build Docker Image**:
+    ```bash
+    docker build -t flask-employee-management-app .
+2. **Check Docker Image**:
+    ```bash
+    docker images
+  - In `REPOSITORY` column should have `flask-employee-management-app`
+3. **Run Docker Image**:
+    ```bash
+    docker run -P flask-employee-management-app
+4. **Check port of the running container**:
+    ```bash
+    docker ps
+  - The application will run on the front port that show in `PORTS` column before `->5000/tcp`
+
+## Login/Logout Option
+
+### Via Browser
+
+#### Login method
+- Visit `BASE_URL/login` on browser
+- Simple login UI will popup
+
+#### Logout method
+- When logged in from UI the logout button will popup
+- Visit `BASE_URL/logout`
+
+### Via API endpoints
+
+#### Login method
+- Use `POST` method submit form-data to `BASE_URL/login`
+  | KEY      | VALUE           |
+  | -------- |:---------------:|
+  | username | `YOUR_USERNAME` |
+  | password | `YOUR_PASSWORD` |
+
+#### Logout method
+- Use `GET` or `POST` method to `BASE_URL/logout`
+
+### API Endpoints
+
+ **For**    | **HTTP Method** | **Endpoint**                          | **Description**                             | **Body**                        | **Body Parameter**                                                   
+------------|-----------------|---------------------------------------|---------------------------------------------|---------------------------------|----------------------------------------------------------------------
+ User       | POST            | /api/register                         | For register username and password to login | JSON                            | username, password                                                   
+ Employee   | GET             | /api/employee                         | Display List of Employee                    | -                               | -                                                                    
+ Employee   | POST            | /api/employee                         | Add new entry to Employee                   | JSON                            | name, address, status_id, department_id, position_id, manager, image 
+ Employee   | PATCH           | /api/employee/<employee_id>           | Update employee                             | JSON                            | name, address, status_id, department_id, position_id, manager, image 
+ Employee   | DELETE          | /api/employee/<employee_id>           | Mark employee status as "Delete"            | -                               | -                                                                    
+ Employee   | DELETE          | /api/employee/<employee_id>/permanent | Direct delete employee from database        | -                               | -                                                                    
+ Status     | GET             | /api/status                           | Display List of Status                      | -                               | -                                                                    
+ Status     | POST            | /api/status                           | Add new entry to Status                     | JSON                            | name                                                                 
+ Status     | PATCH           | /api/status/<status_id>               | Update Status                               | JSON                            | name                                                                 
+ Status     | DELETE          | /api/status/<status_id>               | Direct delete status from database          | -                               | -                                                                    
+ Department | GET             | /api/department                       | Display List of Department                  | -                               | -                                                                    
+ Department | POST            | /api/department                       | Add new entry to Department                 | JSON                            | name, manager_id(employee_id)                                        
+ Department | PATCH           | /api/department/<department_id>       | Update Department                           | JSON                            | name, manager_id(employee_id)                                        
+ Department | DELETE          | /api/department/<department_id>       | Direct delete department from database      | -                               | -                                                                    
+ Position   | GET             | /api/position                         | Display List of Position                    | -                               | -                                                                    
+ Position   | POST            | /api/position                         | Add new entry to Position                   | JSON                            | name, salary                                                         
+ Position   | PATCH           | /api/position/<position_id>           | Update Position                             | JSON                            | name, salary                                                         
+ Position   | DELETE          | /api/position/<position_id>           | Direct delete position from database        | -                               | -                                                                    
+ Employees   | Get             | /api/employees                        | Advanced Queries Filtering & Searching      | (Using Query Parameter Instead) | status_id, department_id, position_id                                
+                                                   
+
+### API Endpoints
+
+To create a new position
+  ```bash
+  curl -X POST http://localhost:5000/api/position \
+    -H "Content-Type: application/json" \
+    -d '{
+        "name": "Backend Developer",
+        "salary": 10000
+    }'
+  ```
+
+### Run Unit Test
+
+Unit tests are written using unittest. You can run them with the following command:
+  ```bash
+  python -m unittest discover tests
+  ```
+
+### Known Issues
+- The application is currently configured to use SQLite for local development. Ensure that the database is switched to PostgreSQL/MySQL for production environments.
+
+### Future Improvements
+- Implement soft deletion of employees instead of hard deletion.
+- Add frontend components to interact with the API.
+- Improve role-based access control for user permissions.
+
+### Credits
+- Flask: https://flask.palletsprojects.com/
+- Docker: https://www.docker.com/
+- Flask-Login: https://flask-login.readthedocs.io/
+
+
+
+
+
+
+
+
+
+
+
+

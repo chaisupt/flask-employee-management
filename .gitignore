@@ -9,3 +9,4 @@ tests/__pycache__
 
 # Ignore SQLite database (in case any)
 *.sqlite3
+
