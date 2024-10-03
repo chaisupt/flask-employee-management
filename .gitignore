@@ -1,0 +1,11 @@
+# Ignore virtual environment
+venv/
+__pycache__/
+app/__pycache__
+tests/__pycache__
+
+# Ignore environment variables file
+.env
+
+# Ignore SQLite database (in case any)
+*.sqlite3
