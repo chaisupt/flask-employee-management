@@ -104,32 +104,33 @@ This is a CRUD-based Employee Management System built with Flask, SQLite for dev
 #### Logout method
 - Use `GET` or `POST` method to `BASE_URL/logout`
 
-### API Endpoints
+#### API Endpoints
 
- **For**    | **HTTP Method** | **Endpoint**                          | **Description**                             | **Body**                        | **Body Parameter**                                                   
-------------|-----------------|---------------------------------------|---------------------------------------------|---------------------------------|----------------------------------------------------------------------
- User       | POST            | /api/register                         | For register username and password to login | JSON                            | username, password                                                   
- Employee   | GET             | /api/employee                         | Display List of Employee                    | -                               | -                                                                    
- Employee   | POST            | /api/employee                         | Add new entry to Employee                   | JSON                            | name, address, status_id, department_id, position_id, manager, image 
- Employee   | PATCH           | /api/employee/<employee_id>           | Update employee                             | JSON                            | name, address, status_id, department_id, position_id, manager, image 
- Employee   | DELETE          | /api/employee/<employee_id>           | Mark employee status as "Delete"            | -                               | -                                                                    
- Employee   | DELETE          | /api/employee/<employee_id>/permanent | Direct delete employee from database        | -                               | -                                                                    
- Status     | GET             | /api/status                           | Display List of Status                      | -                               | -                                                                    
- Status     | POST            | /api/status                           | Add new entry to Status                     | JSON                            | name                                                                 
- Status     | PATCH           | /api/status/<status_id>               | Update Status                               | JSON                            | name                                                                 
- Status     | DELETE          | /api/status/<status_id>               | Direct delete status from database          | -                               | -                                                                    
- Department | GET             | /api/department                       | Display List of Department                  | -                               | -                                                                    
- Department | POST            | /api/department                       | Add new entry to Department                 | JSON                            | name, manager_id(employee_id)                                        
- Department | PATCH           | /api/department/<department_id>       | Update Department                           | JSON                            | name, manager_id(employee_id)                                        
- Department | DELETE          | /api/department/<department_id>       | Direct delete department from database      | -                               | -                                                                    
- Position   | GET             | /api/position                         | Display List of Position                    | -                               | -                                                                    
- Position   | POST            | /api/position                         | Add new entry to Position                   | JSON                            | name, salary                                                         
- Position   | PATCH           | /api/position/<position_id>           | Update Position                             | JSON                            | name, salary                                                         
- Position   | DELETE          | /api/position/<position_id>           | Direct delete position from database        | -                               | -                                                                    
- Employees   | Get             | /api/employees                        | Advanced Queries Filtering & Searching      | (Using Query Parameter Instead) | status_id, department_id, position_id                                
-                                                   
+ **HTTP Method** | **Endpoint**                          | **Description**                             | **Body**                        | **Body Parameter**                                                   
+-----------------|---------------------------------------|---------------------------------------------|---------------------------------|----------------------------------------------------------------------
+ POST            | /api/register                         | For register username and password to login | JSON                            | username, password                                                   
+ GET             | /api/employee                         | Display List of Employee                    | -                               | -                                                                    
+ POST            | /api/employee                         | Add new entry to Employee                   | JSON                            | name, address, status_id, department_id, position_id, manager, image 
+ PATCH           | /api/employee/<employee_id>           | Update employee                             | JSON                            | name, address, status_id, department_id, position_id, manager, image 
+ DELETE          | /api/employee/<employee_id>           | Mark employee status as "Delete"            | -                               | -                                                                    
+ DELETE          | /api/employee/<employee_id>/permanent | Direct delete employee from database        | -                               | -                                                                    
+ GET             | /api/status                           | Display List of Status                      | -                               | -                                                                    
+ POST            | /api/status                           | Add new entry to Status                     | JSON                            | name                                                                 
+ PATCH           | /api/status/<status_id>               | Update Status                               | JSON                            | name                                                                 
+ DELETE          | /api/status/<status_id>               | Direct delete status from database          | -                               | -                                                                    
+ GET             | /api/department                       | Display List of Department                  | -                               | -                                                                    
+ POST            | /api/department                       | Add new entry to Department                 | JSON                            | name, manager_id(employee_id)                                        
+ PATCH           | /api/department/<department_id>       | Update Department                           | JSON                            | name, manager_id(employee_id)                                        
+ DELETE          | /api/department/<department_id>       | Direct delete department from database      | -                               | -                                                                    
+ GET             | /api/position                         | Display List of Position                    | -                               | -                                                                    
+ POST            | /api/position                         | Add new entry to Position                   | JSON                            | name, salary                                                         
+ PATCH           | /api/position/<position_id>           | Update Position                             | JSON                            | name, salary                                                         
+ DELETE          | /api/position/<position_id>           | Direct delete position from database        | -                               | -                                                                    
+ Get             | /api/employees                        | Advanced Queries Filtering & Searching      | (Using Query Parameter Instead) | status_id, department_id, position_id                                
 
-### API Endpoints
+
+
+#### Example API Request (Using cURL)
 
 To create a new position
   ```bash
@@ -141,22 +142,22 @@ To create a new position
     }'
   ```
 
-### Run Unit Test
+#### Run Unit Test
 
 Unit tests are written using unittest. You can run them with the following command:
   ```bash
   python -m unittest discover tests
   ```
 
-### Known Issues
+#### Known Issues
 - The application is currently configured to use SQLite for local development. Ensure that the database is switched to PostgreSQL/MySQL for production environments.
 
-### Future Improvements
+#### Future Improvements
 - Implement soft deletion of employees instead of hard deletion.
 - Add frontend components to interact with the API.
 - Improve role-based access control for user permissions.
 
-### Credits
+#### Credits
 - Flask: https://flask.palletsprojects.com/
 - Docker: https://www.docker.com/
 - Flask-Login: https://flask-login.readthedocs.io/
